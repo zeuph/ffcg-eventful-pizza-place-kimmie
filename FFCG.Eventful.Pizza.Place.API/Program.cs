@@ -1,6 +1,7 @@
 using Azure.Messaging.ServiceBus;
 using FFCG.Eventful.Pizza.Place.Application.Features.CreateNewOrder;
 using FFCG.Eventful.Pizza.Place.Application.Interfaces;
+using FFCG.Eventful.Pizza.Place.Cosmos;
 using FFCG.Eventful.Pizza.Place.Cosmos.Providers;
 using MediatR;
 using Microsoft.Azure.Cosmos;
@@ -18,6 +19,8 @@ builder.Services.AddSwaggerGen();
 
 builder.Services.AddMediatR(typeof(CreateNewOrderHandler).Assembly);
 builder.Services.AddScoped<IOrderProvider, OrderProvider>();
+builder.Services.AddScoped<IPizzaProvider, PizzaProvider>();
+builder.Services.AddScoped<ICustomerProvider, CustomerProvider>();
 
 const string serviceBusConnectionString = "Endpoint=sb://ffcg-eventful-pizza-place.servicebus.windows.net/;SharedAccessKeyName=AccessPolicy;SharedAccessKey=A5dAZQxmaAv3HkufGCPFDmEM/t5zDg0a7bnm5WJvonE=;";
 builder.Services.AddSingleton(s => new ServiceBusClient(serviceBusConnectionString));
