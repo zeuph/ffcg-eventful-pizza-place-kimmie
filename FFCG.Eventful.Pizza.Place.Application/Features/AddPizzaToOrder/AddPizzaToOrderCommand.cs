@@ -6,14 +6,12 @@ namespace FFCG.Eventful.Pizza.Place.Application.Features.AddPizzaToOrder;
 
 public record AddPizzaToOrderCommand(Guid OrderId, Guid PizzaId) : IRequest<Order>;
 
-public class AddPizzaToOrderHandler(IOrderProvider _orderProvider, IPizzaProvider _pizzaProvider)
+public class AddPizzaToOrderHandler(IOrderProvider _orderProvider) : IRequestHandler<AddPizzaToOrderCommand, Order>
 {
-    public async Task<Order> Handle(AddPizzaToOrderCommand request)
+    public async Task<Order> Handle(AddPizzaToOrderCommand request, CancellationToken cancellationToken)
     {
         var order = await _orderProvider.GetOrderById(request.OrderId);
-        var pizza = await _pizzaProvider.GetPizzaById(request.PizzaId);
-
-        order.Pizzas.Add(pizza);
+        order.PizzaIds.Add(request.PizzaId);
 
         await _orderProvider.UpsertOrder(order);
 

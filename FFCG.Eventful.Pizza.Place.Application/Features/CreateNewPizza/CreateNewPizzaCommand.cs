@@ -10,9 +10,9 @@ public class CreateNewPizzaCommand : IRequest<Domain.Models.Pizza>
     public required List<Topping> Toppings { get; init; }
 }
 
-public class CreateNewPizzaHandler(IPizzaProvider _pizzaProvider)
+public class CreateNewPizzaHandler(IPizzaProvider _pizzaProvider) : IRequestHandler<CreateNewPizzaCommand, Domain.Models.Pizza>
 {
-    public async Task<Domain.Models.Pizza> Handle(CreateNewPizzaCommand request)
+    public async Task<Domain.Models.Pizza> Handle(CreateNewPizzaCommand request, CancellationToken cancellationToken)
     {
         return await _pizzaProvider.UpsertPizza(new Domain.Models.Pizza()
         {

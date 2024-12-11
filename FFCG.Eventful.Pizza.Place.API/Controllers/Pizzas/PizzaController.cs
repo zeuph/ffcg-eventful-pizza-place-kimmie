@@ -1,11 +1,10 @@
-using FFCG.Eventful.Pizza.Place.Application.Features.CreateNewPizza;
 using FFCG.Eventful.Pizza.Place.Application.Features.GetAllPizzas;
 using FFCG.Eventful.Pizza.Place.Application.Features.GetPizzaById;
-using FFCG.Eventful.Pizza.Place.Controllers.Pizza.ApiModels;
+using FFCG.Eventful.Pizza.Place.Controllers.Pizzas.ApiModels;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
 
-namespace FFCG.Eventful.Pizza.Place.Controllers.Pizza;
+namespace FFCG.Eventful.Pizza.Place.Controllers.Pizzas;
 
 [ApiController]
 [Route("[controller]")]

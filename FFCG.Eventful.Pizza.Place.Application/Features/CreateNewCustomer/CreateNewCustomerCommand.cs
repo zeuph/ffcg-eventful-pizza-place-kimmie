@@ -6,9 +6,9 @@ namespace FFCG.Eventful.Pizza.Place.Application.Features.CreateNewCustomer;
 
 public record CreateNewCustomerCommand(string Name, string Email, string PhoneNumber) : IRequest<Customer>;
 
-public class CreateNewCustomerHandler(ICustomerProvider _provider)
+public class CreateNewCustomerHandler(ICustomerProvider _provider) : IRequestHandler<CreateNewCustomerCommand, Customer>
 {
-    public async Task<Customer> Handle(CreateNewCustomerCommand request)
+    public async Task<Customer> Handle(CreateNewCustomerCommand request, CancellationToken cancellationToken)
     {
         return await _provider.UpsertCustomer(new Customer()
         {

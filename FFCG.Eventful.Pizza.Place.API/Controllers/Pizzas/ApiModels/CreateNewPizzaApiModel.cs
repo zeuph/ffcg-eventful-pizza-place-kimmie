@@ -1,7 +1,7 @@
 using FFCG.Eventful.Pizza.Place.Application.Features.CreateNewPizza;
 using FFCG.Eventful.Pizza.Place.Domain.Models;
 
-namespace FFCG.Eventful.Pizza.Place.Controllers.Pizza.ApiModels;
+namespace FFCG.Eventful.Pizza.Place.Controllers.Pizzas.ApiModels;
 
 public record CreateNewPizzaApiModel(string Name, List<ToppingApiModel> Toppings)
 {
