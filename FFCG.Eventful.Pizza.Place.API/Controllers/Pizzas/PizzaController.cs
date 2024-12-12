@@ -7,7 +7,7 @@ using Microsoft.AspNetCore.Mvc;
 namespace FFCG.Eventful.Pizza.Place.Controllers.Pizzas;
 
 [ApiController]
-[Route("[controller]")]
+[Route("pizzas")]
 public class PizzaController(ISender _sender) : ControllerBase
 {
     [HttpPost]
