@@ -11,7 +11,7 @@ using Microsoft.AspNetCore.Mvc;
 namespace FFCG.Eventful.Pizza.Place.Controllers.Orders;
 
 [ApiController]
-[Route("[controller]")]
+[Route("orders")]
 public class OrderController(ISender _mediatrSender) : ControllerBase
 {
     [HttpPost]

@@ -3,10 +3,10 @@ using FFCG.Eventful.Pizza.Place.Application.Features.CreateNewOrder;
 using FFCG.Eventful.Pizza.Place.Application.Interfaces;
 using FFCG.Eventful.Pizza.Place.Cosmos;
 using FFCG.Eventful.Pizza.Place.Cosmos.Providers;
+using FFCG.Eventful.Pizza.Place.Domain.Services;
 using MediatR;
 using Microsoft.Azure.Cosmos;
 using Microsoft.Azure.Cosmos.Fluent;
-using Microsoft.Extensions.Azure;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -21,12 +21,11 @@ builder.Services.AddMediatR(typeof(CreateNewOrderHandler).Assembly);
 builder.Services.AddScoped<IOrderProvider, OrderProvider>();
 builder.Services.AddScoped<IPizzaProvider, PizzaProvider>();
 builder.Services.AddScoped<ICustomerProvider, CustomerProvider>();
+builder.Services.AddScoped<IPizzaService, PizzaService>();
 
-const string serviceBusConnectionString = "Endpoint=sb://ffcg-eventful-pizza-place.servicebus.windows.net/;SharedAccessKeyName=AccessPolicy;SharedAccessKey=A5dAZQxmaAv3HkufGCPFDmEM/t5zDg0a7bnm5WJvonE=;";
-builder.Services.AddSingleton(s => new ServiceBusClient(serviceBusConnectionString));
+builder.Services.AddSingleton(s => new ServiceBusClient(builder.Configuration.GetValue<string>("ServiceBus:ConnectionString")));
 
-const string cosmosConnString = "AccountEndpoint=https://ffcg-eventful-pizza-place.documents.azure.com:443/;AccountKey=Ohf1pAx3CEA5HXWv5JkWs6S4xaMXDdPdNm05jM6Qy2ydGTb10lohnym7Z74RtyWln2DRif1d4difA8kGSVRFKw==;";
-builder.Services.AddSingleton(s => new CosmosClientBuilder(cosmosConnString)
+builder.Services.AddSingleton(s => new CosmosClientBuilder(builder.Configuration.GetValue<string>("Cosmos:Url"), builder.Configuration.GetValue<string>("Cosmos:Key"))
     .WithConnectionModeDirect()
     .WithSerializerOptions(new CosmosSerializationOptions
     {
