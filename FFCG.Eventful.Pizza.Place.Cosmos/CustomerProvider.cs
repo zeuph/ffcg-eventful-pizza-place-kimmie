@@ -38,4 +38,11 @@ public class CustomerProvider : ICustomerProvider
         return result.Resource;
     }
 
+    public async Task<Email> SendEmail(Email email)
+    {
+        // Send email
+        // Save event in cosmos
+        var result = await _container.UpsertItemAsync(email, new PartitionKey(email.Id.ToString()));
+        return result.Resource;
+    }
 }
