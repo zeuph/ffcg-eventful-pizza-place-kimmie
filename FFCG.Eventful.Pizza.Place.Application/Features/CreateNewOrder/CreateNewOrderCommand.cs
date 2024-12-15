@@ -15,6 +15,10 @@ public class CreateNewOrderHandler(IOrderProvider _orderProvider) : IRequestHand
     {
         var result = await _orderProvider.UpsertOrder(new Order());
 
+        await _mediator.Publish(
+            new OrderCreatedEvent(result.Id, result.CustomerEmail),
+            cancellationToken
+        );
         return result;
     }
 }
